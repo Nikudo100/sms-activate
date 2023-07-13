@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use Exception;
@@ -10,14 +11,15 @@ class RequestError extends Exception
     public function __construct($errorCode)
     {
         $this->responseCode = $errorCode;
-//        если надо получать файл и строку в которой получена ошибка
-//        $message = "Error in {$this->getFile()}, line: {$this->getLine()}: {$this->errorCodes[$errorCode]}";
+        //        если надо получать файл и строку в которой получена ошибка
+        $message = "Error in {$this->getFile()}, line: {$this->getLine()}: {$this->errorCodes[$errorCode]}";
         $message = "{$this->errorCodes[$errorCode]}";
         parent::__construct($message);
     }
 
     protected $errorCodes = array(
         'ACCESS_ACTIVATION' => 'Сервис успешно активирован',
+        'ACCESS_BALANCE' => 'не достаточный баланс',
         'ACCESS_CANCEL'     => 'активация отменена',
         'ACCESS_READY'      => 'Ожидание нового смс',
         'ACCESS_RETRY_GET'  => 'Готовность номера подтверждена',

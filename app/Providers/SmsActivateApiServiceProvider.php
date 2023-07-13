@@ -14,8 +14,8 @@ class SmsActivateApiServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Services\SMSActivate',function($app){
             //NE знаю, но явно не здесь нужно передавать апи кей 
-            $apikey = env('SMS_ACTIVATE_API_KEY');
-            return new SMSActivate($apikey);
+            // $apikey = env('SMS_ACTIVATE_API_KEY');
+            return new SMSActivate();
         });
     }
 

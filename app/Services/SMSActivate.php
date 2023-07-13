@@ -13,9 +13,9 @@ class SMSActivate
 
     private $apiKey;
 
-    public function __construct($apiKey)
+    public function __construct()
     {
-        $this->apiKey = $apiKey;
+        $this->apiKey = env('SMS_ACTIVATE_API_KEY');
     }
 
     public function getBalance()
@@ -200,17 +200,6 @@ class SMSActivate
             $result = file_get_contents($this->url, false, $context);
         }
 
-        $responseError = new ErrorCodes($result);
-        $check = $responseError->checkExist($result);
-
-        try {
-            if ($check) {
-                throw new RequestError($result);
-            }
-        } catch (RequestError $e) {
-            return $e->getResponseCode();
-        }
-
         if ($parseAsJSON) {
             return json_decode($result, true);
         }
@@ -218,15 +207,20 @@ class SMSActivate
         $parsedResponse = explode(':', $result);
 
         if ($getNumber == 1) {
-            return array('id' => $parsedResponse[1], 'number' => $parsedResponse[2]);
+            // dd($parsedResponse);
+            if(isset($parsedResponse[1]) and isset($parsedResponse[2]))
+                return array('id' => $parsedResponse[1], 'number' => $parsedResponse[2]);
         }
         if ($getNumber == 2) {
-            return array('status' => $parsedResponse[0], 'code' => $parsedResponse[1]);
+            if(isset($parsedResponse[1]) and isset($parsedResponse[0]))
+                return array('status' => $parsedResponse[0], 'code' => $parsedResponse[1]);
         }
         if ($getNumber == 3) {
-            return array('status' => $parsedResponse[0]);
+            if(isset($parsedResponse[0]))
+                return array('status' => $parsedResponse[0]);
         }
-        return $parsedResponse[1];
+        
+        return $parsedResponse;
     }
 
     private function requestRent($data, $method, $parseAsJSON = null, $getNumber = null)
@@ -252,18 +246,16 @@ class SMSActivate
             $context = stream_context_create($options);
             $result = file_get_contents($this->url, false, $context);
         }
-
+        dd($result);
         if ($parseAsJSON) {
             $result = json_decode($result, true);
-//            $responsError = new ErrorCodes($result["message"]);
-//            $check = $responsError->checkExist($result["message"]);  // раскоментить если необходимо включить исключения для Аренды
-//            if ($check) {
-//                throw new RequestError($result["message"]);
-//            }
+            //            $responsError = new ErrorCodes($result["message"]);
+            //            $check = $responsError->checkExist($result["message"]);  // раскоментить если необходимо включить исключения для Аренды
+            //            if ($check) {
+            //                throw new RequestError($result["message"]);
+            //            }
             return $result;
         }
         return $result;
     }
 }
-
-

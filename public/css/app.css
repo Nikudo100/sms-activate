@@ -1,0 +1,24 @@
+body{
+    font-family: 'Tahoma';
+}
+.row{
+    display: flex;
+}
+.table{
+    background-color: white;
+    box-shadow: 5px 5px #fefefe;
+    height: 500px;
+    display: block;
+    overflow-y: scroll;
+    font-size: 20px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.table td, .table th {
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    font-weight: normal;
+}

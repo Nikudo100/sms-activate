@@ -16,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [App\Http\Controllers\SMSActivateController::class,'index']);
+Auth::routes();
+Route::get('{{any}}', [App\Http\Controllers\HomeController::class, 'index']);
+// Route::get('get-number', [App\Http\Controllers\SMSActivateController::class, 'getNumber']);
+
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
