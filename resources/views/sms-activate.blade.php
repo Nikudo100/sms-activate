@@ -24,7 +24,6 @@
         <div>Номер не куплен</div>
     @endif
     <div></div>
-    <div class="row">
 
     <div class="table" id="country">
         <h1>Выберите страну</h1>

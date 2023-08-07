@@ -17,6 +17,8 @@ use App\Http\Controllers\SMSActivateController;
 */
 
 Route::get('/numbers', [SMSActivateController::class, 'index']);
+Route::get('/get-number', [SMSActivateController::class, 'getNumber']);
+Route::get('/services/{id}', [SMSActivateController::class, 'getServices']);
 
 // Route::middleware(['auth:sanctum'])->group(function (){
 //     Route::prefix('shophlNtMWCGneo6Jbfduz')->group(function (){

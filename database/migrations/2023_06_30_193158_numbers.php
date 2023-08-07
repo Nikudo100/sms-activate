@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('id_order')->nullable();
             $table->string('number')->nullable();
+            $table->string('status')->default('wait');
             $table->foreignId('user_id')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

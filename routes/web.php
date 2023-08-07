@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Auth::routes();
-Route::get('{{any}}', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*');
 // Route::get('get-number', [App\Http\Controllers\SMSActivateController::class, 'getNumber']);
 
 

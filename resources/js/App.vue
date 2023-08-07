@@ -1,31 +1,18 @@
 <template>
   <div>
-    111111111
-    <div v-for="i in info.countries" :key="i" class="card-body">
-      <tr>
-        <th style="width: 20%">{{ i.id }}</th>
-        <td style="text-align: left">
-          <p>{{ i.rus }}</p>
-        </td>
-      </tr>
+    <div class="container">
+      <p>
+          <router-link to="/" >Выбрать сервис</router-link> | 
+          <router-link to="/get-number">Купить номер</router-link>
+      </p>
     </div>
-    <!-- {{ info }} -->
+      <div class="container">
+          <router-view></router-view>
+          
+      </div>
   </div>
 </template>
-
 <script>
-export default {
-  data() {
-    return {
-      info: { countries: [] },
-    };
-  },
-  beforeCreate() {
-    axios
-      .get("/api/numbers")
-      .then((response) => (this.info = response.data.data));
-  },
-};
 </script>
 <style lang="">
 </style>

@@ -15,7 +15,6 @@ class SMSActivateController extends Controller
     private $sms;
     public function __construct()
     {
-        // $this->middleware('auth');
         $this->sms = new SMSActivate;
     }
 
@@ -28,44 +27,38 @@ class SMSActivateController extends Controller
         // $apiKey = env('SMS_ACTIVATE_API_KEY');
         $countries = $this->sms->getCountries();
         $balance = $this->sms->getBalance();
-        $numberStatus = $this->sms->getNumbersStatus(0, 'any');
-        // $services = $sms->getAdditionalService(0, $id);
+
+        $services = $this->sms->getAdditionalService(0, 'any');
 
         $getNumber =  Number::all('number');
 
-        return NumberResource::collection([
-            'countries' => $countries,
-            'services' =>  $numberStatus,
-            'balances' => $balance,
-            'getNumber' => $getNumber
-        ]);
-        // return view('index', [
-        // 'countries' => $countries,
-        //     'services' =>  $numberStatus,
+        return  $countries;
+        // return NumberResource::collection([
+        //     'countries' => $countries,
+        //     'services' =>  $services,
         //     'balances' => $balance,
         //     'getNumber' => $getNumber
         // ]);
     }
     public function getNumber(Request $request, Response $response)
     {
-        // 
         // ds
         // tg
         $getNumber = $this->sms->getNumber('ds', 0);
-        // dump($getNumber);    
-        // if ($getNumber[0] == 'NO_NUMBERS!') {
+
         if (isset($getNumber[0])) {
-            return redirect()->back()->with('message', 'NO_NUMBERS!');
+            return $getNumber;
         } else {
-            // dump($getNumber);
-            // foreach ($getNumber as $value) {
-            $user = Number::create([
+            Number::create([
                 'id_order' => $getNumber['id'],
                 'number' => $getNumber['number'],
             ]);
-            // }
-            return redirect()->back()->with('message', $getNumber['number']);
+            return $getNumber;
         }
+    }
+    public function getServices($id)
+    {
+        return $this->sms->getNumbersStatus($id);
     }
 
     public function connectToQiwi()
